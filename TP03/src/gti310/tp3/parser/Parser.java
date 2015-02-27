@@ -12,7 +12,7 @@ package gti310.tp3.parser;
  *      
  * 		Parser<MyObject> parser = new ConcreteParse();
  * 
- * @author Fran�ois Caron <francois.caron.7@ens.etsmtl.ca>
+ * @author Francois Caron <francois.caron.7@ens.etsmtl.ca>
  *
  * @param <E> A template that must be redifined by the implementations of the
  *            Parser interface.

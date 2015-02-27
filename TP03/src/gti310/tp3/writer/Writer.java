@@ -13,7 +13,7 @@ package gti310.tp3.writer;
  * 
  * 		Writer<AnObject> writer = new AnObjectWriter();
  * 
- * @author Fran�ois Caron <francois.caron.7@ens.etsmtl.ca>
+ * @author Francois Caron <francois.caron.7@ens.etsmtl.ca>
  *
  * @param <T> The user-defined object that will be written to file. 
  */

@@ -2,9 +2,9 @@ package gti310.tp3.main;
 
 /**
  * The Application class defines a template method to call the elements to
- * solve the problem Unreal-Networks is fa�ing.
+ * solve the problem Unreal-Networks is facing.
  * 
- * @author Fran�ois Caron <francois.caron.7@ens.etsmtl.ca>
+ * @author Francois Caron <francois.caron.7@ens.etsmtl.ca>
  */
 public class Application {
 

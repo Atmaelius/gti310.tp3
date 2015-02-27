@@ -15,7 +15,7 @@ package gti310.tp3.solver;
  *  handing in the data.
  *  @see Parser
  *  
- * @author Fran�ois Caron <francois.caron.7@ens.etsmtl.ca>
+ * @author Francois Caron <francois.caron.7@ens.etsmtl.ca>
  *
  * @param <E> The template defining the awaited input object.
  * @param <T> The template defining the output object to return.
