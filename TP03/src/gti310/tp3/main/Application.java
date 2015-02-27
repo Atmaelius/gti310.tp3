@@ -9,9 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import gti310.tp3.data.Graph;
+import gti310.tp3.data.OptimisedRoute;
 import gti310.tp3.data.Route;
 import gti310.tp3.parser.FileParser;
 import gti310.tp3.parser.Parser;
+import gti310.tp3.solver.GraphSolver;
+import gti310.tp3.solver.Solver;
 
 /**
  * The Application class defines a template method to call the elements to
@@ -33,10 +36,30 @@ public class Application {
 	 */
 	public static void main(String args[]) throws IOException {
 		System.out.println("Unreal Networks Solver !");
+		/* 
+		 * DIAG SEQ ENONCE
+		 * 
+		 * Application appelle le parser pour lire le fichier
+		 * le parser lis le fichier et crée l'objet de stockage
+		 * le parser retourne l'objet de stockage
+		 * 
+		 * L'application appelle le solver avec l'objet de stockage en parametre
+		 * le solver consulte l'Objet de stockage et cree l'objet solution
+		 * le solver retourne lobjet solution
+		 * 
+		 * l'application appelle le writer avec l'objet solution en parametre
+		 * le writer consulte l'objet solution et écris le fichier
+		 */
 		
+		Parser<Graph> parser = new FileParser();
+		Graph routeGraph = parser.parse(args[0]);
 		
-		Parser parser = new FileParser();
-		parser.parse(args[0]);
+		System.out.println(routeGraph.toString());
+		routeGraph.displayAllRoutes();
+		
+		Solver<Graph,OptimisedRoute> solver = new GraphSolver(); 
+		solver.solve(routeGraph);
+		
 		
 		
 /*

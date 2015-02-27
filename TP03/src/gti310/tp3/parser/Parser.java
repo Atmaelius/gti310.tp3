@@ -1,5 +1,7 @@
 package gti310.tp3.parser;
 
+import gti310.tp3.data.Graph;
+
 /**
  * The Parser interface defines the method through which an input file will be
  * interpreted and an output object will be returned. For greater flexibility,
@@ -29,5 +31,5 @@ public interface Parser<E> {
 	 * @return An object produced from the input file, or null if something
 	 * 		   went wrong.
 	 */
-	E parse(String filename);
+	Graph parse(String filename);
 }
