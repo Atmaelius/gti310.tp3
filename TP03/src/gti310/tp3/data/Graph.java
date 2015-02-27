@@ -20,8 +20,6 @@ public class Graph {
 	public int nbOfSummits;
 	public int nbOfRoutes;
 	public ArrayList<Route> routeArray;
-	public String sourcePath;
-	public String destinationPath;
 	
 	
 	public Graph() {
@@ -30,14 +28,12 @@ public class Graph {
 	}
 	
 	// on va setter le nombre de sommets et de routes a partir du array de routes directement
-	public Graph(int startPoint, ArrayList<Route> routeArray, int nbOfSummits, String sourcePath, String destinationPath) {
+	public Graph(int startPoint, ArrayList<Route> routeArray, int nbOfSummits) {
 		super();
 		this.startPoint = startPoint;
 		this.routeArray = routeArray;
 		this.nbOfSummits = nbOfSummits;
 		this.nbOfRoutes = routeArray.size();
-		this.sourcePath = sourcePath;
-		this.destinationPath = destinationPath;
 	}
 
 	public int getStartPoint() {
@@ -71,37 +67,21 @@ public class Graph {
 		}
 	}
 */
-	public ArrayList<Route> getGraph() {
+	public ArrayList<Route> getRoutes() {
 		return routeArray;
 	}
 
 	// on set le nb de routes en même temps que le graphe parce que le nb de routes est la grandeur du graphe
-	public void setGraph(ArrayList<Route> graph) {
-		this.routeArray = graph;
-		this.nbOfRoutes = graph.size();
+	public void setRoutes(ArrayList<Route> routes) {
+		this.routeArray = routes;
+		this.nbOfRoutes = routes.size();
 	}
 
-	public String getSourcePath() {
-		return sourcePath;
-	}
-
-	public void setSourcePath(String sourcePath) {
-		this.sourcePath = sourcePath;
-	}
-
-	public String getDestinationPath() {
-		return destinationPath;
-	}
-
-	public void setDestinationPath(String destinationPath) {
-		this.destinationPath = destinationPath;
-	}
-	
 	/**
 	 * A human-readable display of the graph
 	 */
 	public String toString() {
-		return "Graph: [nbOfSummits: " + nbOfSummits + "] - [nbOfRoutes: " + nbOfRoutes + "] - [startPoint: " + startPoint + "] - [sourcePath: " + sourcePath + "] - [destinationPath: " + destinationPath + "]";
+		return "Graph: [nbOfSummits: " + nbOfSummits + "] - [nbOfRoutes: " + nbOfRoutes + "] - [startPoint: " + startPoint + "]";
 	}
 	
 	/**

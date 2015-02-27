@@ -15,6 +15,8 @@ import gti310.tp3.parser.FileParser;
 import gti310.tp3.parser.Parser;
 import gti310.tp3.solver.GraphSolver;
 import gti310.tp3.solver.Solver;
+import gti310.tp3.writer.OptimisedRouteWriter;
+import gti310.tp3.writer.Writer;
 
 /**
  * The Application class defines a template method to call the elements to
@@ -51,14 +53,27 @@ public class Application {
 		 * le writer consulte l'objet solution et écris le fichier
 		 */
 		
+		// on lis le fichier et retourne le graphe des routes
 		Parser<Graph> parser = new FileParser();
 		Graph routeGraph = parser.parse(args[0]);
 		
+		System.out.println("READ GRAPH");
 		System.out.println(routeGraph.toString());
 		routeGraph.displayAllRoutes();
 		
+		System.out.println("SOLVING");
+		// on envoie le graphe des routes dans le solveur qui retourne le chemin optimise
 		Solver<Graph,OptimisedRoute> solver = new GraphSolver(); 
-		solver.solve(routeGraph);
+		OptimisedRoute optRoute = solver.solve(routeGraph);
+		
+		System.out.println("SOLVED ROUTE");
+		optRoute.displayAllRoutes();
+		
+		System.out.println("WRITING ROUTE");
+		// on ecris le chemin optimise dans le fichier
+		Writer<OptimisedRoute> routeWriter = new OptimisedRouteWriter();
+		routeWriter.write(args[1], optRoute);
+		System.out.println("DONE WRITING");
 		
 		
 		

@@ -1,19 +1,20 @@
 package gti310.tp3.parser;
 /**
- * FileParser concret pour lire le fichier et générer le graphe qui sera renvoyé a l'application principale
+ * Classe FileParser concret pour lire le fichier et générer le graphe qui sera renvoyé a l'application principale
  * @author eric
  */
+
 import gti310.tp3.data.Graph;
 import gti310.tp3.data.Route;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileParser implements Parser{
-	Graph routeGraph = new Graph();
+public class FileParser implements Parser<Graph>{
 
 	public Graph parse(String filename) {
+		
+		Graph routeGraph = new Graph();
 		// code pour le bufferedReader modifié depuis: http://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
 		BufferedReader br = null;
 		int lineNumber =0;
@@ -22,7 +23,6 @@ public class FileParser implements Parser{
 		try {
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(filename));
-			routeGraph.setSourcePath(filename);
 			
 			// on utilise la variable linenumber pour identifier les lignes.
 			// la premiere ligne donne le nombre de sommets et la seconde le point de départ
@@ -40,9 +40,6 @@ public class FileParser implements Parser{
 					if(currentSplittedLine[0].compareTo("$") != 0){
 						Route route = new Route(Integer.parseInt(currentSplittedLine[0]), Integer.parseInt(currentSplittedLine[1]), Integer.parseInt(currentSplittedLine[2]));
 						routeGraph.addRoute(route);
-					}
-					else{
-						System.out.println("DONE READING !");
 					}
 				}
 				lineNumber++;
