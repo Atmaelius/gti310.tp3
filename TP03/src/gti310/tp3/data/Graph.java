@@ -1,6 +1,14 @@
 package gti310.tp3.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 import gti310.tp3.data.Route;
 
 /**
@@ -67,6 +75,43 @@ public class Graph {
 		}
 	}
 */
+	
+	/*
+	 * 
+	public int[] getSummitsArray(){
+		
+		Integer[] arrayTemp = new Integer[getNbOfRoutes()];
+		int[] arrayRoute = new int[getNbOfSummits()];
+		int index = 0;
+
+		for (int i = 0; i < arrayTemp.length; i++) {
+			arrayTemp[i] = routeArray.get(i).getSource();
+		}
+		
+		Set<Integer> set = new LinkedHashSet<Integer>(Arrays.asList(arrayTemp));
+		
+		for( Integer i : set ) {
+			arrayRoute[index++] = i; //note the autounboxing here
+		}
+		
+		return arrayRoute;
+	}
+	
+	 */
+	
+	
+	public ArrayList<Integer> getSummitsList(){
+		
+		TreeSet<Integer> tempSet = new TreeSet<Integer>(); 
+		for (int i = 0; i < getNbOfRoutes(); i++) {
+			tempSet.add(routeArray.get(i).getSource());
+		}
+		ArrayList<Integer> arrayTemp = new ArrayList<Integer>(tempSet);
+		
+		return arrayTemp;
+	}
+	
+	
 	public ArrayList<Route> getRoutes() {
 		return routeArray;
 	}

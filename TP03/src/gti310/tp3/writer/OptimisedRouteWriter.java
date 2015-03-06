@@ -29,12 +29,12 @@ public class OptimisedRouteWriter implements Writer<OptimisedRoute>{
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			bw.write(String.valueOf(outputRoute.getStartPoint()) + "\n");
-			
+		/*	
 			for (Route route : outputRoute.getRouteArray()) {
 				System.out.println("writtenLine: "+ route.getDestination() + tab + route.getParent() + tab + route.getWeight());
 				bw.write(route.getDestination() + tab + route.getParent() + tab + route.getWeight()+"\n");
 			}
-
+*/
 			bw.close();
 	
 			System.out.println("SOLUTION A CET ENDROIT: " + outputFilename);

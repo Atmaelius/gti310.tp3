@@ -1,42 +1,42 @@
 package gti310.tp3.data;
 /**
- * Classe qui représente une route entre deux points
+ * Classe qui représente une route entre deux poIntegers
  * @author eric
  */
 public class Route {
 
-	public int destination;
-	public int parent;
-	public int weight;
+	public Integer source;
+	public Integer destination;
+	public Integer weight;
 	
-	public Route(int destination, int parent, int weight) {
+	public Route(Integer source, Integer destination, Integer weight) {
 		super();
+		this.source = source;
 		this.destination = destination;
-		this.parent = parent;
 		this.weight = weight;
 	}
 	
-	public int getDestination() {
+	public Integer getSource() {
+		return source;
+	}
+	public void setSource(Integer source) {
+		this.source = source;
+	}
+	public Integer getDestination() {
 		return destination;
 	}
-	public void setDestination(int destination) {
+	public void setDestination(Integer destination) {
 		this.destination = destination;
 	}
-	public int getParent() {
-		return parent;
-	}
-	public void setParent(int parent) {
-		this.parent = parent;
-	}
-	public int getWeight() {
+	public Integer getWeight() {
 		return weight;
 	}
-	public void setWeight(int weight) {
+	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
 	
 	public String toString(){
-		return "Destination: " + destination + "; Parent: " + parent + "; Weight: " + weight + ";";
+		return "Source: " + source + "; Destination: " + destination + "; Weight: " + weight + ";";
 	}
 	
 }

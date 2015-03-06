@@ -1,16 +1,8 @@
 package gti310.tp3.main;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import gti310.tp3.data.Graph;
 import gti310.tp3.data.OptimisedRoute;
-import gti310.tp3.data.Route;
 import gti310.tp3.parser.FileParser;
 import gti310.tp3.parser.Parser;
 import gti310.tp3.solver.GraphSolver;
@@ -65,7 +57,8 @@ public class Application {
 		// on envoie le graphe des routes dans le solveur qui retourne le chemin optimise
 		Solver<Graph,OptimisedRoute> solver = new GraphSolver(); 
 		OptimisedRoute optRoute = solver.solve(routeGraph);
-		
+	
+		/*
 		System.out.println("SOLVED ROUTE");
 		optRoute.displayAllRoutes();
 		
@@ -75,6 +68,7 @@ public class Application {
 		routeWriter.write(args[1], optRoute);
 		System.out.println("DONE WRITING");
 		
+		*/
 		
 		
 /*
