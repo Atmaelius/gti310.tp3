@@ -1,14 +1,7 @@
 package gti310.tp3.data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
 import gti310.tp3.data.Route;
 
 /**
@@ -18,7 +11,6 @@ import gti310.tp3.data.Route;
  * 		point de depart
  * 		nombre de sommets
  * 		nombre de chemins
- * 		path de source et destination -> voir si pertinent
  * @author eric
  */
 
@@ -63,54 +55,6 @@ public class Graph {
 	public int getNbOfRoutes() {
 		return nbOfRoutes;
 	}
-
-	/*
-	 // pas besoin de setter le nb de routes puisque le set gu graph set le nb de routes aussi
-	public void setNbOfRoutes(int nbOfRoutes) {
-		this.nbOfRoutes = nbOfRoutes;
-		// on verifie si la valeur du nombre de routes concorde avec la taille du array de routes.
-		// 
-		if((nbOfRoutes != routeArray.size()) && (routeArray.size() != 0)){
-			nbOfRoutes = routeArray.size();
-		}
-	}
-*/
-	
-	/*
-	 * 
-	public int[] getSummitsArray(){
-		
-		Integer[] arrayTemp = new Integer[getNbOfRoutes()];
-		int[] arrayRoute = new int[getNbOfSummits()];
-		int index = 0;
-
-		for (int i = 0; i < arrayTemp.length; i++) {
-			arrayTemp[i] = routeArray.get(i).getSource();
-		}
-		
-		Set<Integer> set = new LinkedHashSet<Integer>(Arrays.asList(arrayTemp));
-		
-		for( Integer i : set ) {
-			arrayRoute[index++] = i; //note the autounboxing here
-		}
-		
-		return arrayRoute;
-	}
-	
-	 */
-	
-	
-	public ArrayList<Integer> getSummitsList(){
-		
-		TreeSet<Integer> tempSet = new TreeSet<Integer>(); 
-		for (int i = 0; i < getNbOfRoutes(); i++) {
-			tempSet.add(routeArray.get(i).getSource());
-		}
-		ArrayList<Integer> arrayTemp = new ArrayList<Integer>(tempSet);
-		
-		return arrayTemp;
-	}
-	
 	
 	public ArrayList<Route> getRoutes() {
 		return routeArray;
@@ -122,6 +66,20 @@ public class Graph {
 		this.nbOfRoutes = routes.size();
 	}
 
+	/**
+	 * A function that returns an arrayList containing all the summits of the current graph
+	 * @return	arrayTemp 
+	 */
+	public ArrayList<Integer> getSummitsList(){
+		TreeSet<Integer> tempSet = new TreeSet<Integer>(); 
+		for (int i = 0; i < getNbOfRoutes(); i++) {
+			tempSet.add(routeArray.get(i).getSource());
+		}
+		ArrayList<Integer> arrayTemp = new ArrayList<Integer>(tempSet);
+		return arrayTemp;
+	}
+	
+	
 	/**
 	 * A human-readable display of the graph
 	 */
@@ -138,6 +96,7 @@ public class Graph {
 		routeArray.add(route);
 		nbOfRoutes++;
 	}
+	
 	/**
 	 * Displays all contained routes as[Destination: x; Parent: y; Weight: z;]
 	 */

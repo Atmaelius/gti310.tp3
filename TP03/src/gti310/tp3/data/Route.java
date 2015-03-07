@@ -1,6 +1,6 @@
 package gti310.tp3.data;
 /**
- * Classe qui représente une route entre deux poIntegers
+ * Classe qui représente une route entre deux points
  * @author eric
  */
 public class Route {

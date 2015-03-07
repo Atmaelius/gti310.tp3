@@ -2,24 +2,20 @@ package gti310.tp3.data;
 
 import java.util.ArrayList;
 
-
 public class ResolutionTable {
 
 	public final static int INFINI = 999999999;
-
 	
 	public ArrayList<Integer> summitList;
 	public ArrayList<Integer> parentList;
 	public ArrayList<Integer> weightList;
 	public ArrayList<Boolean> visitedList;
 	
-	
 	public ResolutionTable() {
 		summitList = new ArrayList<Integer>();
 		parentList = new ArrayList<Integer>();
 		weightList = new ArrayList<Integer>();
 		visitedList = new ArrayList<Boolean>();
-
 	}
 
 	public ResolutionTable(ArrayList<Integer> summitList,
@@ -64,7 +60,10 @@ public class ResolutionTable {
 		this.visitedList = visitedList;
 	}
 	
-	
+	/**
+	 * Function to initialise the ResolutionTable to start working on the problem
+	 * @param enteredSummitList A list of the graphs summits 
+	 */
 	public void initialise(ArrayList<Integer> enteredSummitList){
 		summitList = enteredSummitList;
 		for (int i = 0; i < summitList.size(); i++) {
@@ -73,5 +72,18 @@ public class ResolutionTable {
 			visitedList.add(false);
 		}
 	}
-
+	
+	/**
+	 * Utility function to show the content of the ResolutionTable
+	 */
+	public void printContent(){
+		for (int i = 0; i < summitList.size(); i++) {
+			System.out.print(summitList.get(i) + ",");
+			System.out.print(parentList.get(i) + ",");
+			System.out.print(weightList.get(i) + ",");
+			System.out.print(visitedList.get(i));
+			System.out.println();
+		}
+	}
+	
 }

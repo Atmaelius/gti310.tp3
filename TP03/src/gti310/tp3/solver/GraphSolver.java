@@ -4,51 +4,44 @@ package gti310.tp3.solver;
  * @author eric
  */
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Vector;
-
-import gti310.tp3.data.Graph;
-import gti310.tp3.data.OptimisedRoute;
-import gti310.tp3.data.ResolutionTable;
-import gti310.tp3.data.Route;
+import gti310.tp3.data.*;
 
 
 public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 	
-	// faire nouvel objet de stockage pour la sortie
+	ResolutionTable resTable = new ResolutionTable();
 	
-	ResolutionTable resolve = new ResolutionTable();
-	
-	@Override
+	/**
+	 * Function to solve the problem at hand using dijkstra algorithm to find the shortest path to all the summits
+	 */
 	public OptimisedRoute solve(Graph inputGraph) {
 
-		// on initialise toutes nos structures
-		
-		
-		resolve.initialise(inputGraph.getSummitsList());
+	// on initialise toutes nos structures
+		resTable.initialise(inputGraph.getSummitsList());
 		Vector<Integer> vectSommetsRestants = new Vector<Integer>();
 		Vector<Integer> vectSommetsTraites = new Vector<Integer>();
 		ArrayList<Route> routes = inputGraph.getRoutes();
 		
-		// etat initial
-		printForAnthony(resolve);
-
-		
+	// etat initial
+	//	printForAnthony(resolve);
+		resTable.printContent();
+	// on ajoute tout les sommets le vecteur des sommets restants
 		int sommetActuel = inputGraph.getStartPoint();
 		vectSommetsRestants.addAll(inputGraph.getSummitsList());
 		
-		// initialiser le point de départ
-		for (int i = 0; i < resolve.getSummitList().size(); i++) {
-			if(sommetActuel == resolve.getSummitList().get(i)){
-				resolve.getWeightList().set(i, 0);
+	// initialiser le point de départ
+		for (int i = 0; i < resTable.getSummitList().size(); i++) {
+			if(sommetActuel == resTable.getSummitList().get(i)){
+				resTable.getWeightList().set(i, 0);
 			}
 		}
 		
-		// pour trouver tout les voisins du noeud actuel
+	// pour trouver tout les voisins du noeud actuel
 		for (int j = 0; j < routes.size(); j++) {
 			if(routes.get(j).getSource() == sommetActuel){
-				for (int i = 0; i < resolve.getSummitList().size(); i++) {
-					if(routes.get(j).getDestination() == resolve.getSummitList().get(i)){
+				for (int i = 0; i < resTable.getSummitList().size(); i++) {
+					if(routes.get(j).getDestination() == resTable.getSummitList().get(i)){
 						System.out.println("Sommet: " + routes.get(j).getDestination());
 						System.out.println("Distance: " + routes.get(j).getWeight());
 						
@@ -60,15 +53,21 @@ public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 		}
 		
 			
-		printForAnthony(resolve);
+		//printForAnthony(resolve);
+		resTable.printContent();
+		
 		
 		return null;
-}
+	}
 	
 
 
 
-
+	/**
+	 * Returns the smallest value contained in a given array
+	 * @param array A given array
+	 * @return minValue The smallest value contained in the array
+	 */
 	// Adapté depuis: http://stackoverflow.com/questions/18525474/java-minimum-and-maximum-values-in-array
 	public static int getMinValue(int[] array){  
 		int minValue = 99999999;  
@@ -82,7 +81,7 @@ public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 		return minValue;  
 	}  
 	
-	
+	/*
 	private void printForAnthony(ResolutionTable resolve) {
 
 		System.out.println("Summit, Parent, Weight, IsVisited?");
@@ -95,7 +94,7 @@ public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 			System.out.println();
 		}
 	}
-	
+	*/
 	
 	
 	private void relaxer(int sommetActuel, Integer sommetDestination, Integer poid){

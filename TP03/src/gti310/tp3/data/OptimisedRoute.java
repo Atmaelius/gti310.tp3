@@ -3,7 +3,8 @@ package gti310.tp3.data;
 import java.util.ArrayList;
 
 /**
- * Cette classe est la représentation logique du chemin optimisé.
+ * [ A RETRAVAILLER ]
+ * Cette classe est la représentation logique des plus courts chemins trouvés
  * ESSENTIELLEMENT LA MÊME CHOSE QUE LA CLASSE GRAPH
  * 	-> arrayList de chemins
  * 	-> point de départ
