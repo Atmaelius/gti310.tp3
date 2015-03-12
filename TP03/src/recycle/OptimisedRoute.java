@@ -1,4 +1,6 @@
-package gti310.tp3.data;
+package recycle;
+
+import gti310.tp3.data.Route;
 
 import java.util.ArrayList;
 
@@ -21,19 +23,16 @@ public class OptimisedRoute {
 	public int startPoint;
 	public ArrayList<Route> routeArray;
 	
-	
 	public OptimisedRoute() {
 		// initialisation vide du array afin de pouvoir le remplir avec la méthode add
 		routeArray = new ArrayList<Route>();
 	}
-
 	
 	public OptimisedRoute(int startPoint, ArrayList<Route> routeArray) {
 		super();
 		this.startPoint = startPoint;
 		this.routeArray = routeArray;
 	}
-
 	
 	public int getStartPoint() {
 		return startPoint;

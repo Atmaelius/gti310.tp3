@@ -21,7 +21,6 @@ public class Graph {
 	public int nbOfRoutes;
 	public ArrayList<Route> routeArray;
 	
-	
 	public Graph() {
 		// à la création du graphe on crée un array de routes vides, ainsi on peu utiliser la méthode addroute directement apres la création avec le constructeur sans paramètres
 		routeArray = new ArrayList<Route>();
@@ -79,7 +78,6 @@ public class Graph {
 		return arrayTemp;
 	}
 	
-	
 	/**
 	 * A human-readable display of the graph
 	 */
@@ -105,5 +103,4 @@ public class Graph {
 			System.out.println(route.toString());
 		}
 	}
-	
 }

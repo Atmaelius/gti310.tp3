@@ -1,13 +1,16 @@
 package gti310.tp3.main;
 
 import java.io.IOException;
+
+import recycle.OptimisedRoute;
+import recycle.OptimisedRouteWriter;
 import gti310.tp3.data.Graph;
-import gti310.tp3.data.OptimisedRoute;
+import gti310.tp3.data.ResolutionTable;
 import gti310.tp3.parser.FileParser;
 import gti310.tp3.parser.Parser;
 import gti310.tp3.solver.GraphSolver;
 import gti310.tp3.solver.Solver;
-import gti310.tp3.writer.OptimisedRouteWriter;
+import gti310.tp3.writer.ResolutionTableWriter;
 import gti310.tp3.writer.Writer;
 
 /**
@@ -55,20 +58,16 @@ public class Application {
 		
 		System.out.println("SOLVING");
 		// on envoie le graphe des routes dans le solveur qui retourne le chemin optimise
-		Solver<Graph,OptimisedRoute> solver = new GraphSolver(); 
-		OptimisedRoute optRoute = solver.solve(routeGraph);
+		Solver<Graph,ResolutionTable> solver = new GraphSolver(); 
+		ResolutionTable resTable = solver.solve(routeGraph);
 	
-		/*
-		System.out.println("SOLVED ROUTE");
-		optRoute.displayAllRoutes();
+		System.out.println("SOLVED GRAPH");
+		resTable.printContent();
 		
-		System.out.println("WRITING ROUTE");
-		// on ecris le chemin optimise dans le fichier
-		Writer<OptimisedRoute> routeWriter = new OptimisedRouteWriter();
-		routeWriter.write(args[1], optRoute);
+		System.out.println("WRITE GRAPH");
+		Writer<ResolutionTable> resTableWriter = new ResolutionTableWriter();
+		resTableWriter.write(args[1], resTable);
 		System.out.println("DONE WRITING");
-		
-		*/
 		
 		
 /*

@@ -5,17 +5,18 @@ package gti310.tp3.solver;
  */
 import java.util.ArrayList;
 import java.util.Vector;
+
 import gti310.tp3.data.*;
 
 
-public class GraphSolver implements Solver<Graph, OptimisedRoute>{
+public class GraphSolver implements Solver<Graph, ResolutionTable>{
 	
 	ResolutionTable resTable = new ResolutionTable();
 	
 	/**
 	 * Function to solve the problem at hand using dijkstra algorithm to find the shortest path to all the summits
 	 */
-	public OptimisedRoute solve(Graph inputGraph) {
+	public ResolutionTable solve(Graph inputGraph) {
 
 	// on initialise toutes nos structures
 		resTable.initialise(inputGraph.getSummitsList());
@@ -25,7 +26,6 @@ public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 
 		
 	// etat initial
-		resTable.printContent();
 	// on ajoute tout les sommets le vecteur des sommets restants
 		int sommetActuel = inputGraph.getStartPoint();
 		vectSommetsRestants.addAll(inputGraph.getSummitsList());
@@ -37,30 +37,26 @@ public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 			}
 		}
 		
-	while (vectSommetsRestants.size() != 0) {
-		
-	// pour trouver tout les voisins du noeud actuel
-		for (int j = 0; j < routes.size(); j++) {
-			if(routes.get(j).getSource() == sommetActuel){
-				for (int i = 0; i < resTable.getSummitList().size(); i++) {
-					if(routes.get(j).getDestination() == resTable.getSummitList().get(i)){
-						System.out.println("Sommet: " + routes.get(j).getDestination());
-						System.out.println("Distance: " + routes.get(j).getWeight());
-						
-			//			System.out.println("RELAXER SOMMET ACTUEL" + sommetActuel);
-						relaxer(sommetActuel, routes.get(j).getDestination(), routes.get(j).getWeight(),i);
+		while (vectSommetsRestants.size() != 0) {
+			
+		// pour trouver tout les voisins du noeud actuel
+			for (int j = 0; j < routes.size(); j++) {
+				if(routes.get(j).getSource() == sommetActuel){
+					for (int i = 0; i < resTable.getSummitList().size(); i++) {
+						if(routes.get(j).getDestination() == resTable.getSummitList().get(i)){
+							relaxer(sommetActuel, routes.get(j).getDestination(), routes.get(j).getWeight(),i);
+						}
 					}
 				}
 			}
-		}
-		int indexSommetActuel = resTable.getCurrentSummitIndex(sommetActuel);
-		vectSommetsRestants.remove((Integer)sommetActuel);
-		vectSommetsTraites.add((Integer)sommetActuel);
-		resTable.setVisitedAtIndex(indexSommetActuel, true);
-		sommetActuel = resTable.getSummitFromSmallestWeight(vectSommetsRestants);
-	}	
-		resTable.printContent();
-		return null;
+			int indexSommetActuel = resTable.getCurrentSummitIndex(sommetActuel);
+			vectSommetsRestants.remove((Integer)sommetActuel);
+			vectSommetsTraites.add((Integer)sommetActuel);
+			resTable.setVisitedAtIndex(indexSommetActuel, true);
+			sommetActuel = resTable.getSummitFromSmallestWeight(vectSommetsRestants);
+		}	
+		
+		return resTable;
 	}
 	
 

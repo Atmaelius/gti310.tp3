@@ -68,7 +68,7 @@ public class ResolutionTable {
 	public void initialise(ArrayList<Integer> enteredSummitList){
 		summitList = enteredSummitList;
 		for (int i = 0; i < summitList.size(); i++) {
-			parentList.add(null);
+			parentList.add(-1);
 			weightList.add(INFINI);
 			visitedList.add(false);
 		}
@@ -87,20 +87,19 @@ public class ResolutionTable {
 			System.out.println();
 		}
 	}
-	
 
-	public Integer[] getLineFromIndex(int sommet){
+	public Integer[] getLineFromIndex(int index){
 		
 		int valeurIntBool = 0;
-		boolean valeur = visitedList.get(sommet);
+		boolean valeur = visitedList.get(index);
 		Integer[] array = new Integer[4];
 		
 		if(valeur){
 			valeurIntBool = 1;
 		}
-		array[0] = summitList.get(sommet);
-		array[1] = parentList.get(sommet);
-		array[2] = weightList.get(sommet);
+		array[0] = summitList.get(index);
+		array[1] = parentList.get(index);
+		array[2] = weightList.get(index);
 		array[3] = valeurIntBool;
 		
 		return array;
@@ -116,13 +115,10 @@ public class ResolutionTable {
 		for (int i = 0; i < summitList.size(); i++) {
 			if(summitList.get(i) == sommet){
 				newIndex = i;
-				
 				boolean valeur = visitedList.get(newIndex);
-				
 				if(valeur){
 					valeurIntBool = 1;
 				}
-					
 				array[0] = summitList.get(newIndex);
 				array[1] = parentList.get(newIndex);
 				array[2] = weightList.get(newIndex);
@@ -137,35 +133,25 @@ public class ResolutionTable {
 		weightList.set(index, weight);
 	}
 	
+	
 	public void setVisitedAtIndex(int index, boolean visited){
 		visitedList.set(index, visited);
 	}
+	
 	
 	public void setParentAtIndex(int index, int parent){
 		parentList.set(index, parent);
 	}
 	
+	
 	public int getSummitFromSmallestWeight(Vector<Integer> vectSommetsRestants){
-		
 		int smallest = getMinNonVisitedValue(weightList);
 		int index = -1;
 		
 		for (int i = 0; i < weightList.size(); i++) {
-/*
-			if(visitedList.get(i) == false){
-				System.out.println("***************************************************");
-			}
-			System.out.println("------------------------------------------------"+visitedList.size());
-	*/
-			/*
-			System.out.println("SMALLEST: " + smallest);
-			System.out.println("WEIGHT: " + weightList.get(i) + "; VISITED: " + visitedList.get(i));
-			System.out.println(summitList.get(i));
-*/
 			if((weightList.get(i) == smallest) && (visitedList.get(i) == false)){
 				return summitList.get(i);
 			}
-			
 		}
 		return index;			
 	}
@@ -182,7 +168,7 @@ public class ResolutionTable {
 		return indexTrouve;
 	}
 	
-
+	
 	/**
 	 * Returns the smallest value contained in a given array
 	 * @param array A given array
@@ -190,7 +176,7 @@ public class ResolutionTable {
 	 */
 	// Adapté depuis: http://stackoverflow.com/questions/18525474/java-minimum-and-maximum-values-in-array
 	public int getMinNonVisitedValue(ArrayList<Integer> list){  
-		int minValue = 99999999;  
+		int minValue = INFINI;  
 		for(int i = 0; i < list.size(); i++){  
 			if(!(list.get(i) == 0)){
 				if((list.get(i) < minValue) && (visitedList.get(i) == false)){  
@@ -199,6 +185,31 @@ public class ResolutionTable {
 			}
 		}  
 		return minValue;  
-	}  
+	}
+
+	/* fonction utilisées dans l'écriture dans le fichier */ 
 	
+	/**
+	 * Function that returns the a formatted string of the ResolutionTable to be written directly to the file
+	 * @param i
+	 * @return a string to be written to the file
+	 */
+	public String printLineToWrite(int i){
+		String tab = "\t";
+		String endline = "\n";
+		return getSummitList().get(i) + tab + getParentList().get(i) + tab + getWeightList().get(i) + endline;
+	}
+	
+	/**
+	 * Function that returns the startPoint of the solved resolutionTable
+	 * @return the starting point of the solution
+	 */
+	public Integer getStartPoint() {
+		for (int i = 0; i < summitList.size(); i++) {
+			if(parentList.get(i) == -1){
+				return summitList.get(i);
+			}
+		}
+		return -1;
+	}  
 }
