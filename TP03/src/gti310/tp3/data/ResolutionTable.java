@@ -88,7 +88,6 @@ public class ResolutionTable {
 		}
 	}
 	
-	
 
 	public Integer[] getLineFromIndex(int sommet){
 		
