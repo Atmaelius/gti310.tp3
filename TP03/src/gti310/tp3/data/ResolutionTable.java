@@ -1,6 +1,7 @@
 package gti310.tp3.data;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class ResolutionTable {
 
@@ -77,6 +78,7 @@ public class ResolutionTable {
 	 * Utility function to show the content of the ResolutionTable
 	 */
 	public void printContent(){
+		System.out.println("");
 		for (int i = 0; i < summitList.size(); i++) {
 			System.out.print(summitList.get(i) + ",");
 			System.out.print(parentList.get(i) + ",");
@@ -85,5 +87,119 @@ public class ResolutionTable {
 			System.out.println();
 		}
 	}
+	
+	
+
+	public Integer[] getLineFromIndex(int sommet){
+		
+		int valeurIntBool = 0;
+		boolean valeur = visitedList.get(sommet);
+		Integer[] array = new Integer[4];
+		
+		if(valeur){
+			valeurIntBool = 1;
+		}
+		array[0] = summitList.get(sommet);
+		array[1] = parentList.get(sommet);
+		array[2] = weightList.get(sommet);
+		array[3] = valeurIntBool;
+		
+		return array;
+	}
+	
+	
+	public Integer[] getLineFromSummit(int sommet){
+		
+		int newIndex = -1;
+		int valeurIntBool = 0;
+		Integer[] array = new Integer[4];
+		
+		for (int i = 0; i < summitList.size(); i++) {
+			if(summitList.get(i) == sommet){
+				newIndex = i;
+				
+				boolean valeur = visitedList.get(newIndex);
+				
+				if(valeur){
+					valeurIntBool = 1;
+				}
+					
+				array[0] = summitList.get(newIndex);
+				array[1] = parentList.get(newIndex);
+				array[2] = weightList.get(newIndex);
+				array[3] = valeurIntBool;
+			}
+		}
+		return array;
+	}
+	
+	
+	public void setWeightAtIndex(int index, int weight){
+		weightList.set(index, weight);
+	}
+	
+	public void setVisitedAtIndex(int index, boolean visited){
+		visitedList.set(index, visited);
+	}
+	
+	public void setParentAtIndex(int index, int parent){
+		parentList.set(index, parent);
+	}
+	
+	public int getSummitFromSmallestWeight(Vector<Integer> vectSommetsRestants){
+		
+		int smallest = getMinNonVisitedValue(weightList);
+		int index = -1;
+		
+		for (int i = 0; i < weightList.size(); i++) {
+/*
+			if(visitedList.get(i) == false){
+				System.out.println("***************************************************");
+			}
+			System.out.println("------------------------------------------------"+visitedList.size());
+	*/
+			/*
+			System.out.println("SMALLEST: " + smallest);
+			System.out.println("WEIGHT: " + weightList.get(i) + "; VISITED: " + visitedList.get(i));
+			System.out.println(summitList.get(i));
+*/
+			if((weightList.get(i) == smallest) && (visitedList.get(i) == false)){
+				return summitList.get(i);
+			}
+			
+		}
+		return index;			
+	}
+	
+	
+	public int getCurrentSummitIndex(int summitName){
+		int indexTrouve = -1;
+		
+		for (int i = 0; i < summitList.size(); i++) {
+			if(summitList.get(i).intValue() == summitName){
+				indexTrouve = i;
+			}
+		}
+		return indexTrouve;
+	}
+	
+
+	/**
+	 * Returns the smallest value contained in a given array
+	 * @param array A given array
+	 * @return minValue The smallest value contained in the array
+	 */
+	// Adapté depuis: http://stackoverflow.com/questions/18525474/java-minimum-and-maximum-values-in-array
+	public int getMinNonVisitedValue(ArrayList<Integer> list){  
+		int minValue = 99999999;  
+		for(int i = 0; i < list.size(); i++){  
+			if(!(list.get(i) == 0)){
+				if((list.get(i) < minValue) && (visitedList.get(i) == false)){  
+					minValue = list.get(i);  
+				}  
+			}
+		}  
+		return minValue;  
+	}  
 	
 }

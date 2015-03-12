@@ -22,9 +22,9 @@ public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 		Vector<Integer> vectSommetsRestants = new Vector<Integer>();
 		Vector<Integer> vectSommetsTraites = new Vector<Integer>();
 		ArrayList<Route> routes = inputGraph.getRoutes();
+
 		
 	// etat initial
-	//	printForAnthony(resolve);
 		resTable.printContent();
 	// on ajoute tout les sommets le vecteur des sommets restants
 		int sommetActuel = inputGraph.getStartPoint();
@@ -37,6 +37,8 @@ public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 			}
 		}
 		
+	while (vectSommetsRestants.size() != 0) {
+		
 	// pour trouver tout les voisins du noeud actuel
 		for (int j = 0; j < routes.size(); j++) {
 			if(routes.get(j).getSource() == sommetActuel){
@@ -45,64 +47,42 @@ public class GraphSolver implements Solver<Graph, OptimisedRoute>{
 						System.out.println("Sommet: " + routes.get(j).getDestination());
 						System.out.println("Distance: " + routes.get(j).getWeight());
 						
-						relaxer(sommetActuel, routes.get(j).getDestination(), routes.get(j).getWeight());
-						
+			//			System.out.println("RELAXER SOMMET ACTUEL" + sommetActuel);
+						relaxer(sommetActuel, routes.get(j).getDestination(), routes.get(j).getWeight(),i);
 					}
 				}
 			}
 		}
-		
-			
-		//printForAnthony(resolve);
+		int indexSommetActuel = resTable.getCurrentSummitIndex(sommetActuel);
+		vectSommetsRestants.remove((Integer)sommetActuel);
+		vectSommetsTraites.add((Integer)sommetActuel);
+		resTable.setVisitedAtIndex(indexSommetActuel, true);
+		sommetActuel = resTable.getSummitFromSmallestWeight(vectSommetsRestants);
+	}	
 		resTable.printContent();
-		
-		
 		return null;
 	}
 	
 
+	private void relaxer(int sommetActuel, Integer sommetDestination, Integer poid, int indexSommet){
 
-
-	/**
-	 * Returns the smallest value contained in a given array
-	 * @param array A given array
-	 * @return minValue The smallest value contained in the array
-	 */
-	// Adapté depuis: http://stackoverflow.com/questions/18525474/java-minimum-and-maximum-values-in-array
-	public static int getMinValue(int[] array){  
-		int minValue = 99999999;  
-		for(int i = 0; i < array.length; i++){  
-			if(!(array[i] == 0)){
-				if((array[i] < minValue)){  
-					minValue = array[i];  
-				}  
-			}
-		}  
-		return minValue;  
-	}  
-	
-	/*
-	private void printForAnthony(ResolutionTable resolve) {
-
-		System.out.println("Summit, Parent, Weight, IsVisited?");
-		for (int i = 0; i < resolve.getSummitList().size(); i++) {
-			System.out.print(resolve.getSummitList().get(i) + ",");
-			System.out.print(resolve.getParentList().get(i) + ",");
-			System.out.print(resolve.getWeightList().get(i) + ",");
-			System.out.print(resolve.getVisitedList().get(i));
-			
-			System.out.println();
+		int poidAuSommet = resTable.getWeightList().get(indexSommet);
+		int sommePoid = resTable.getLineFromSummit(sommetActuel)[2] + poid;
+		Integer[] array = new Integer[4];
+		
+		if(sommePoid < poidAuSommet){
+			array = resTable.getLineFromSummit(sommetDestination);
+			resTable.setWeightAtIndex(indexSommet, sommePoid);	
+			resTable.setParentAtIndex(indexSommet, sommetActuel);
 		}
 	}
-	*/
 	
 	
-	private void relaxer(int sommetActuel, Integer sommetDestination, Integer poid){
-		//resolve.  -> voir notes de cours diapos 8-38, 8-39: ANTHONY
-		
-		// la distance actuelle + poid entre les deux points < distance initiale(infini)
-		//		0               + 500 (sommet2) < 999999
-		//if()
-		
+	public void showArray(Integer[] array){
+		System.out.print("-> ");	
+		for (int i = 0; i < array.length; i++) {
+			System.out.print(array[i] + ",");
+		}
+		System.out.println("");
 	}
 }
