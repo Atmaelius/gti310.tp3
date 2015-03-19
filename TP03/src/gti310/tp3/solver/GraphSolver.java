@@ -1,13 +1,13 @@
 package gti310.tp3.solver;
+
+import java.util.ArrayList;
+import java.util.Vector;
+import gti310.tp3.data.*;
+
 /**
  * Classe qui résolvera le problème de l'optimisation de route avec le graphe passée en paramètre
  * @author eric
  */
-import java.util.ArrayList;
-import java.util.Vector;
-
-import gti310.tp3.data.*;
-
 
 public class GraphSolver implements Solver<Graph, ResolutionTable>{
 	
@@ -38,12 +38,12 @@ public class GraphSolver implements Solver<Graph, ResolutionTable>{
 		}
 		
 		while (vectSommetsRestants.size() != 0) {
-			
 		// pour trouver tout les voisins du noeud actuel
 			for (int j = 0; j < routes.size(); j++) {
 				if(routes.get(j).getSource() == sommetActuel){
 					for (int i = 0; i < resTable.getSummitList().size(); i++) {
 						if(routes.get(j).getDestination() == resTable.getSummitList().get(i)){
+							// on applique relaxer sur les voisins
 							relaxer(sommetActuel, routes.get(j).getDestination(), routes.get(j).getWeight(),i);
 						}
 					}
@@ -53,13 +53,20 @@ public class GraphSolver implements Solver<Graph, ResolutionTable>{
 			vectSommetsRestants.remove((Integer)sommetActuel);
 			vectSommetsTraites.add((Integer)sommetActuel);
 			resTable.setVisitedAtIndex(indexSommetActuel, true);
+			// on change le sommet actuel pour passer au prochain
 			sommetActuel = resTable.getSummitFromSmallestWeight(vectSommetsRestants);
 		}	
 		
 		return resTable;
 	}
 	
-
+	/**
+	 * 
+	 * @param sommetActuel
+	 * @param sommetDestination
+	 * @param poid
+	 * @param indexSommet
+	 */
 	private void relaxer(int sommetActuel, Integer sommetDestination, Integer poid, int indexSommet){
 
 		int poidAuSommet = resTable.getWeightList().get(indexSommet);

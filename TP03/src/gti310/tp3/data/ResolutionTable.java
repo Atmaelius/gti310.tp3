@@ -3,10 +3,14 @@ package gti310.tp3.data;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * Classe qui représente une table permettant d'effectuer les calculs pour la résolution du graphe
+ * @author eric
+ */
+
 public class ResolutionTable {
 
 	public final static int INFINI = 999999999;
-	
 	public ArrayList<Integer> summitList;
 	public ArrayList<Integer> parentList;
 	public ArrayList<Integer> weightList;
@@ -33,32 +37,12 @@ public class ResolutionTable {
 		return summitList;
 	}
 
-	public void setSummitList(ArrayList<Integer> summitList) {
-		this.summitList = summitList;
-	}
-
 	public ArrayList<Integer> getParentList() {
 		return parentList;
 	}
-
-	public void setParentList(ArrayList<Integer> parentList) {
-		this.parentList = parentList;
-	}
-
+	
 	public ArrayList<Integer> getWeightList() {
 		return weightList;
-	}
-
-	public void setWeightList(ArrayList<Integer> weightList) {
-		this.weightList = weightList;
-	}
-
-	public ArrayList<Boolean> getVisitedList() {
-		return visitedList;
-	}
-
-	public void setVisitedList(ArrayList<Boolean> visitedList) {
-		this.visitedList = visitedList;
 	}
 	
 	/**
@@ -75,7 +59,7 @@ public class ResolutionTable {
 	}
 	
 	/**
-	 * Utility function to show the content of the ResolutionTable
+	 * Utility function to directly print the content of the ResolutionTable
 	 */
 	public void printContent(){
 		System.out.println("");
@@ -88,6 +72,11 @@ public class ResolutionTable {
 		}
 	}
 
+	/**
+	 * Function that returns a resolutionTable line's information chosen by index 
+	 * @param index	the wanted index of the line
+	 * @return array	an array containing the values of the chosen line
+	 */
 	public Integer[] getLineFromIndex(int index){
 		
 		int valeurIntBool = 0;
@@ -105,7 +94,11 @@ public class ResolutionTable {
 		return array;
 	}
 	
-	
+	/**
+	 * Fonction that returns the chosen summit's line of information
+	 * @param the summit of reference
+	 * @return array an array containing the values of the chosen line
+	 */
 	public Integer[] getLineFromSummit(int sommet){
 		
 		int newIndex = -1;
@@ -128,35 +121,28 @@ public class ResolutionTable {
 		return array;
 	}
 	
-	
-	public void setWeightAtIndex(int index, int weight){
-		weightList.set(index, weight);
-	}
-	
-	
-	public void setVisitedAtIndex(int index, boolean visited){
-		visitedList.set(index, visited);
-	}
-	
-	
-	public void setParentAtIndex(int index, int parent){
-		parentList.set(index, parent);
-	}
-	
-	
+	/**
+	 * Function that returns the summit that has the smallest weight and that is not set as visited from a vector of summits names
+	 * @param vectSommetsRestants vector of summits to search into
+	 * @return summit (int) the summit that was found, returns -1 if none was found
+	 */
 	public int getSummitFromSmallestWeight(Vector<Integer> vectSommetsRestants){
 		int smallest = getMinNonVisitedValue(weightList);
-		int index = -1;
+		int summit = -1;
 		
 		for (int i = 0; i < weightList.size(); i++) {
 			if((weightList.get(i) == smallest) && (visitedList.get(i) == false)){
 				return summitList.get(i);
 			}
 		}
-		return index;			
+		return summit;			
 	}
 	
-	
+	/**
+	 * Function that returns the index of the collection containing the chosen summit
+	 * @param summitName the summit to be searched
+	 * @return the index of the summit, if not found returns -1
+	 */
 	public int getCurrentSummitIndex(int summitName){
 		int indexTrouve = -1;
 		
@@ -187,11 +173,25 @@ public class ResolutionTable {
 		return minValue;  
 	}
 
+	
+	public void setWeightAtIndex(int index, int weight){
+		weightList.set(index, weight);
+	}
+	
+	public void setVisitedAtIndex(int index, boolean visited){
+		visitedList.set(index, visited);
+	}
+	
+	public void setParentAtIndex(int index, int parent){
+		parentList.set(index, parent);
+	}
+	
+	
 	/* fonction utilisées dans l'écriture dans le fichier */ 
 	
 	/**
 	 * Function that returns the a formatted string of the ResolutionTable to be written directly to the file
-	 * @param i
+	 * @param i the number of the line to be returned
 	 * @return a string to be written to the file
 	 */
 	public String printLineToWrite(int i){
@@ -202,7 +202,7 @@ public class ResolutionTable {
 	
 	/**
 	 * Function that returns the startPoint of the solved resolutionTable
-	 * @return the starting point of the solution
+	 * @return the starting point of the solution, returns -1 if no startpoint could be found
 	 */
 	public Integer getStartPoint() {
 		for (int i = 0; i < summitList.size(); i++) {
@@ -212,4 +212,5 @@ public class ResolutionTable {
 		}
 		return -1;
 	}  
+	
 }

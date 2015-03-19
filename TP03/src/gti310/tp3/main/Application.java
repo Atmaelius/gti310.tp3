@@ -1,17 +1,10 @@
 package gti310.tp3.main;
 
 import java.io.IOException;
-
-import recycle.OptimisedRoute;
-import recycle.OptimisedRouteWriter;
-import gti310.tp3.data.Graph;
-import gti310.tp3.data.ResolutionTable;
-import gti310.tp3.parser.FileParser;
-import gti310.tp3.parser.Parser;
-import gti310.tp3.solver.GraphSolver;
-import gti310.tp3.solver.Solver;
-import gti310.tp3.writer.ResolutionTableWriter;
-import gti310.tp3.writer.Writer;
+import gti310.tp3.data.*;
+import gti310.tp3.parser.*;
+import gti310.tp3.solver.*;
+import gti310.tp3.writer.*;
 
 /**
  * The Application class defines a template method to call the elements to
@@ -52,43 +45,22 @@ public class Application {
 		Parser<Graph> parser = new FileParser();
 		Graph routeGraph = parser.parse(args[0]);
 		
-		System.out.println("READ GRAPH");
-		System.out.println(routeGraph.toString());
+		System.out.println("READING FILE...");
+		System.out.println("CREATING UNSOLVED GRAPH");
 		routeGraph.displayAllRoutes();
 		
-		System.out.println("SOLVING");
+		System.out.println("SOLVING THE GRAPH");
 		// on envoie le graphe des routes dans le solveur qui retourne le chemin optimise
 		Solver<Graph,ResolutionTable> solver = new GraphSolver(); 
 		ResolutionTable resTable = solver.solve(routeGraph);
 	
-		System.out.println("SOLVED GRAPH");
-		resTable.printContent();
+		System.out.println("WRITING SOLVED GRAPH TO FILE...");
 		
-		System.out.println("WRITE GRAPH");
 		Writer<ResolutionTable> resTableWriter = new ResolutionTableWriter();
 		resTableWriter.write(args[1], resTable);
-		System.out.println("DONE WRITING");
 		
-		
-/*
-		// faire comme dans fichier vendeur-sol
-		Route route1 = new Route(1, -1, 0);
-		Route route2 = new Route(2, 1, 500);
-		Route route3 = new Route(3, 1, 450);
-		Route route4 = new Route(4, 3, 800);
-		Route route5 = new Route(5, 7, 1090);
-		Route route6 = new Route(6, 5, 1365);
-		Route route7 = new Route(7, 1, 800);
-*/
-		
-	
-		
-		
-		
-		
-		
-		
-		
+		System.out.println("DONE");
+		System.out.println("SOLVED FILE IS AVAILABLE AT THIS LOCATION: " + args[1]);
 		
 	}
 }

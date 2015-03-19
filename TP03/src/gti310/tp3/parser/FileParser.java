@@ -1,14 +1,15 @@
 package gti310.tp3.parser;
-/**
- * Classe FileParser concret pour lire le fichier et générer le graphe qui sera renvoyé a l'application principale
- * @author eric
- */
 
 import gti310.tp3.data.Graph;
 import gti310.tp3.data.Route;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+/**
+ * Classe FileParser concret pour lire le fichier et générer le graphe qui sera renvoyé a l'application principale
+ * @author eric
+ */
 
 public class FileParser implements Parser<Graph>{
 
@@ -17,7 +18,7 @@ public class FileParser implements Parser<Graph>{
 		Graph routeGraph = new Graph();
 		// code pour le bufferedReader modifié depuis: http://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
 		BufferedReader br = null;
-		int lineNumber =0;
+		int lineNumber = 0;
 		String[] currentSplittedLine;
 		
 		try {
