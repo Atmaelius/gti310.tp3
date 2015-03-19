@@ -47,7 +47,7 @@ public class Application {
 		
 		System.out.println("READING FILE...");
 		System.out.println("CREATING UNSOLVED GRAPH");
-		routeGraph.displayAllRoutes();
+	//	routeGraph.displayAllRoutes();
 		
 		System.out.println("SOLVING THE GRAPH");
 		// on envoie le graphe des routes dans le solveur qui retourne le chemin optimise

@@ -14,6 +14,7 @@ public class GraphSolver implements Solver<Graph, ResolutionTable>{
 	ResolutionTable resTable = new ResolutionTable();
 	
 	/**
+	 * Analyse de Complexité: (Min)= 1; (Max)=N³;
 	 * Function to solve the problem at hand using dijkstra algorithm to find the shortest path to all the summits
 	 */
 	public ResolutionTable solve(Graph inputGraph) {
@@ -24,25 +25,24 @@ public class GraphSolver implements Solver<Graph, ResolutionTable>{
 		Vector<Integer> vectSommetsTraites = new Vector<Integer>();
 		ArrayList<Route> routes = inputGraph.getRoutes();
 
-		
 	// etat initial
 	// on ajoute tout les sommets le vecteur des sommets restants
 		int sommetActuel = inputGraph.getStartPoint();
 		vectSommetsRestants.addAll(inputGraph.getSummitsList());
 		
 	// initialiser le point de départ
-		for (int i = 0; i < resTable.getSummitList().size(); i++) {
-			if(sommetActuel == resTable.getSummitList().get(i)){
+		for (int i = 0; i < resTable.getSummitList().size(); i++) { //Complexité: (Min)=1; (Max)=N;
+			if(sommetActuel == resTable.getSummitList().get(i)){ //Complexité: (Min)=N; (Max)=N;
 				resTable.getWeightList().set(i, 0);
 			}
 		}
 		
-		while (vectSommetsRestants.size() != 0) {
+		while (vectSommetsRestants.size() != 0) { //Complexité: (Min)=1; (Max)=N;
 		// pour trouver tout les voisins du noeud actuel
-			for (int j = 0; j < routes.size(); j++) {
-				if(routes.get(j).getSource() == sommetActuel){
-					for (int i = 0; i < resTable.getSummitList().size(); i++) {
-						if(routes.get(j).getDestination() == resTable.getSummitList().get(i)){
+			for (int j = 0; j < routes.size(); j++) { //Complexité: (Min)=1; (Max)=N;
+				if(routes.get(j).getSource() == sommetActuel){ //Complexité: (Min)=N; (Max)=N;
+					for (int i = 0; i < resTable.getSummitList().size(); i++) { //Complexité: (Min)=1; (Max)=N;
+						if(routes.get(j).getDestination() == resTable.getSummitList().get(i)){ //Complexité: (Min)=N; (Max)=N;
 							// on applique relaxer sur les voisins
 							relaxer(sommetActuel, routes.get(j).getDestination(), routes.get(j).getWeight(),i);
 						}
@@ -60,8 +60,9 @@ public class GraphSolver implements Solver<Graph, ResolutionTable>{
 		return resTable;
 	}
 	
+	
 	/**
-	 * 
+	 * Analyse de Complexité: (Min)=1; (Max)=N;
 	 * @param sommetActuel
 	 * @param sommetDestination
 	 * @param poid
@@ -73,17 +74,21 @@ public class GraphSolver implements Solver<Graph, ResolutionTable>{
 		int sommePoid = resTable.getLineFromSummit(sommetActuel)[2] + poid;
 		Integer[] array = new Integer[4];
 		
-		if(sommePoid < poidAuSommet){
+		if(sommePoid < poidAuSommet){ //Complexité: (Min)=1; (Max)=N;
 			array = resTable.getLineFromSummit(sommetDestination);
 			resTable.setWeightAtIndex(indexSommet, sommePoid);	
 			resTable.setParentAtIndex(indexSommet, sommetActuel);
 		}
 	}
 	
-	
+	/**
+	 * Complexité: (Min)=1; (Max)=N;
+	 * Function that displays the content of an array
+	 * @param array the array to be displayed
+	 */
 	public void showArray(Integer[] array){
 		System.out.print("-> ");	
-		for (int i = 0; i < array.length; i++) {
+		for (int i = 0; i < array.length; i++) { //Complexité: (Min)=1; (Max)=N;
 			System.out.print(array[i] + ",");
 		}
 		System.out.println("");

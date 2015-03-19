@@ -14,6 +14,7 @@ import java.io.IOException;
 public class FileParser implements Parser<Graph>{
 
 	public Graph parse(String filename) {
+		boolean startExists = false;
 		
 		Graph routeGraph = new Graph();
 		// code pour le bufferedReader modifié depuis: http://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
@@ -31,20 +32,36 @@ public class FileParser implements Parser<Graph>{
 			while ((sCurrentLine = br.readLine()) != null) {
 				currentSplittedLine = sCurrentLine.split("\t", 0);
 				
-				if(lineNumber == 0){
+				if((lineNumber == 0) && (currentSplittedLine.length == 1)){
 					routeGraph.setNbOfSummits(Integer.parseInt(currentSplittedLine[0]));
 				}
-				else if(lineNumber == 1){
+				else if((lineNumber == 1) && (currentSplittedLine.length == 1)){
 					routeGraph.setStartPoint(Integer.parseInt(currentSplittedLine[0]));
 				}
-				else{
-					if(currentSplittedLine[0].compareTo("$") != 0){
+				else if(lineNumber > 1){
+					if((currentSplittedLine[0].compareTo("$") != 0) && (currentSplittedLine.length == 3)){
 						Route route = new Route(Integer.parseInt(currentSplittedLine[0]), Integer.parseInt(currentSplittedLine[1]), Integer.parseInt(currentSplittedLine[2]));
 						routeGraph.addRoute(route);
 					}
 				}
+				else{
+					System.out.println("HOUSTON WE HAVE A PROBLEM");
+				}
+				
 				lineNumber++;
 			}
+			
+			for (Route route : routeGraph.getRoutes()) {
+				if(routeGraph.getStartPoint() == route.getSource()){
+					startExists = true;
+				}
+			}
+
+			if(!startExists){
+				System.out.println("LE POINT DE DÉPART N'EXISTE PAS DANS LES ROUTES");
+				return null;
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

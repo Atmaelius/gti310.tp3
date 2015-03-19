@@ -34,7 +34,7 @@ public class ResolutionTableWriter implements Writer<ResolutionTable> {
 			bw.write(String.valueOf(resTable.getStartPoint()) + endline);
 	
 			for (int j = 0; j < resTable.getSummitList().size(); j++) {
-				System.out.println("writtenLine: "+ resTable.printLineToWrite(j));
+			//	System.out.println("writtenLine: "+ resTable.printLineToWrite(j));
 				bw.write(resTable.printLineToWrite(j));
 			}
 			
